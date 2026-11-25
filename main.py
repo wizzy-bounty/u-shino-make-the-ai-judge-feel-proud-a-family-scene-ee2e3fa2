@@ -11,11 +11,15 @@ ENTRY = (
 MAX_ENTRY_CHARS = 280
 
 
-def write_entry(output_dir: str) -> None:
+def validate_entry() -> None:
     if not 1 <= len(ENTRY) <= MAX_ENTRY_CHARS:
         raise ValueError("entry must be 1 to 280 characters")
     if ENTRY.count("\n") > 1:
         raise ValueError("entry must be one or two lines")
+
+
+def write_entry(output_dir: str) -> None:
+    validate_entry()
     os.makedirs(output_dir, exist_ok=True)
     with open(os.path.join(output_dir, "entry.txt"), "w", encoding="utf-8") as fh:
         fh.write(ENTRY)
